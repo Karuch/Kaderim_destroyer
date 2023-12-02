@@ -1,21 +1,49 @@
 const { app, BrowserWindow } = require('electron');
-const moment = require('moment/moment');
 
+let mainWindow;
 
-moment().format('MMMM Do YYYY, h:mm:ss a')
-
-function createWindow () {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
+function createWindow() {
+  mainWindow = new BrowserWindow({
     width: 500,
     height: 600,
-    frame: false // This removes the native title bar
+    show: false // Initially, don't show the window
   });
 
-  // Load the index.html of the app.
   mainWindow.loadFile('index.html');
 
-  // ... the rest of your window creation code.
+  // Event handler for the close event
+  mainWindow.on('close', (event) => {
+    if (!app.isQuitting) {
+      event.preventDefault();
+      mainWindow.hide(); // Hide the window
+    }
+    return false;
+  });
+
+  // ... other code ...
 }
 
-app.whenReady().then(createWindow);
+function checkTimeAndShowWindow() {
+  setInterval(() => {
+    const now = new Date();
+    const minutes = now.getMinutes();
+    if (minutes === 49 && mainWindow) {
+      mainWindow.show();
+    }
+  }, 10000); // Check every 10 seconds
+}
+
+app.whenReady().then(() => {
+  createWindow();
+  checkTimeAndShowWindow();
+});
+
+app.on('before-quit', () => {
+  app.isQuitting = true;
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
