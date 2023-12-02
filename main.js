@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Tray, Menu } = require('electron');
 
 let mainWindow;
 
@@ -6,6 +6,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 500,
     height: 600,
+    icon: './icon.jpg',
     show: false // Initially, don't show the window
   });
 
@@ -27,16 +28,18 @@ function checkTimeAndShowWindow() {
   setInterval(() => {
     const now = new Date();
     const minutes = now.getMinutes();
-    if (minutes != 50 && mainWindow) {
+    if (minutes === 29 && mainWindow) {
       mainWindow.show();
     }
-  }, 60); // Check every 10 seconds
+  }, 10000); // Check every 10 seconds
 }
 
 app.whenReady().then(() => {
   createWindow();
+  createTray();
   checkTimeAndShowWindow();
 });
+
 
 app.on('before-quit', () => {
   app.isQuitting = true;
@@ -47,3 +50,32 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+let tray = null;
+
+function createTray() {
+  tray = new Tray('./icon.jpg'); // Path to your icon image
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: function () {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Quit',
+      click: function () {
+        app.isQuitting = true;
+        app.quit();
+      }
+    }
+  ]);
+
+  tray.setToolTip('Your Electron App');
+  tray.setContextMenu(contextMenu);
+
+  tray.on('click', () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+  });
+}
