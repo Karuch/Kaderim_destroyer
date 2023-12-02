@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron');
 
 let mainWindow;
+let tray = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -12,6 +13,7 @@ function createWindow() {
 
   mainWindow.loadFile('index.html');
   mainWindow.setMenuBarVisibility(false);
+
   // Event handler for the close event
   mainWindow.on('close', (event) => {
     if (!app.isQuitting) {
@@ -23,35 +25,6 @@ function createWindow() {
 
   // ... other code ...
 }
-
-function checkTimeAndShowWindow() {
-  setInterval(() => {
-    const now = new Date();
-    const minutes = now.getMinutes();
-    if (minutes === 29 && mainWindow) {
-      mainWindow.show();
-    }
-  }, 10000); // Check every 10 seconds
-}
-
-app.whenReady().then(() => {
-  createWindow();
-  createTray();
-  checkTimeAndShowWindow();
-});
-
-
-app.on('before-quit', () => {
-  app.isQuitting = true;
-});
-
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
-
-let tray = null;
 
 function createTray() {
   tray = new Tray('./icon.png'); // Path to your icon image
@@ -79,3 +52,38 @@ function createTray() {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
   });
 }
+
+function checkTimeAndShowWindow() {
+  setInterval(() => {
+    const now = new Date();
+    const minutes = now.getMinutes();
+    if (minutes === 31 && mainWindow) {
+      mainWindow.show();
+    }
+  }, 10000); // Check every 10 seconds
+}
+
+function refreshWindow() {
+  if (mainWindow) {
+    mainWindow.reload();
+  }
+}
+
+app.whenReady().then(() => {
+  createWindow();
+  createTray();
+  checkTimeAndShowWindow();
+
+  // Set an interval to refresh the window every 10 seconds
+  setInterval(refreshWindow, 10000);
+});
+
+app.on('before-quit', () => {
+  app.isQuitting = true;
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
