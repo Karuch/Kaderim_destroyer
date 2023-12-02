@@ -27,10 +27,10 @@ function checkTimeAndShowWindow() {
   setInterval(() => {
     const now = new Date();
     const minutes = now.getMinutes();
-    if (minutes === 49 && mainWindow) {
+    if (minutes != 50 && mainWindow) {
       mainWindow.show();
     }
-  }, 10000); // Check every 10 seconds
+  }, 60); // Check every 10 seconds
 }
 
 app.whenReady().then(() => {

@@ -8,6 +8,11 @@
   font-size: large;
 }
 
+#date {
+  font-size: small;
+  margin-left: 10px;
+}
+
 /* Use attribute selector to target all elements with an id that starts with "expandingTextArea" */
 [id^="expandingTextArea"] {
   width: 100%;
