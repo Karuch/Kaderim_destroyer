@@ -8,7 +8,7 @@ fetch('https://dummyjson.com/products/1')
     if (textareaElement.value) {
       textareaElement.value += '\n\n';
     }
-    textareaElement.value += json.title;
+    textareaElement.value += `⬛️ ${json.title}`;
 
     // Adjust the height of the textarea
     textareaElement.style.height = 'auto'; // Reset the height
@@ -29,7 +29,7 @@ fetch('https://dummyjson.com/products/1')
     if (textareaElement.value) {
       textareaElement.value += '\n\n';
     }
-    textareaElement.value += json.price;
+    textareaElement.value += `⬛️ ${json.price}`;
 
     // Adjust the height of the textarea
     textareaElement.style.height = 'auto'; // Reset the height

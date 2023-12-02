@@ -8,6 +8,11 @@
   font-size: large;
 }
 
+.header {
+  background-color: darkgray;
+  width: 99.9%;
+}
+
 #date {
   font-size: small;
   margin-left: 10px;
@@ -15,7 +20,7 @@
 
 /* Use attribute selector to target all elements with an id that starts with "expandingTextArea" */
 [id^="expandingTextArea"] {
-  width: 100%;
+  width: 98.8%;
   min-height: 1px;
   overflow-y: hidden;
   resize: none;

@@ -6,12 +6,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 500,
     height: 600,
-    icon: './icon.jpg',
+    icon: './icon.png',
     show: false // Initially, don't show the window
   });
 
   mainWindow.loadFile('index.html');
-
+  mainWindow.setMenuBarVisibility(false);
   // Event handler for the close event
   mainWindow.on('close', (event) => {
     if (!app.isQuitting) {
@@ -54,7 +54,7 @@ app.on('activate', () => {
 let tray = null;
 
 function createTray() {
-  tray = new Tray('./icon.jpg'); // Path to your icon image
+  tray = new Tray('./icon.png'); // Path to your icon image
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -72,7 +72,7 @@ function createTray() {
     }
   ]);
 
-  tray.setToolTip('Your Electron App');
+  tray.setToolTip('פותח צירים אולטימטיבי');
   tray.setContextMenu(contextMenu);
 
   tray.on('click', () => {
