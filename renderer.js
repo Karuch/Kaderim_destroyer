@@ -13,6 +13,7 @@ function adjustHeight() {
 expandings_handler('expandingTextArea');
 expandings_handler('expandingTextArea2');
 expandings_handler('expandingTextArea3');
+expandings_handler('expandingTextArea4');
 
 
 function toggleButtonAndTextarea(buttonId, textareaId) {
@@ -41,3 +42,4 @@ function toggleButtonAndTextarea(buttonId, textareaId) {
 toggleButtonAndTextarea('emojiButton', 'expandingTextArea'); // Replace with your actual IDs
 toggleButtonAndTextarea('emojiButton2', 'expandingTextArea2'); // Replace with your actual IDs
 toggleButtonAndTextarea('emojiButton3', 'expandingTextArea3'); // Replace with your actual IDs
+toggleButtonAndTextarea('emojiButton4', 'expandingTextArea4'); // Replace with your actual IDs

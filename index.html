@@ -4,26 +4,35 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' https://dummyjson.com">
     <title>Hello World!</title>
   </head>
   <body>
   <div class="services">
+    <script src="api_handler.js"></script>
     <div class="content-container">
       <button id="emojiButton">✔️</button>
       <p>ספרטא</p>
     </div>
-    <textarea id="expandingTextArea">תקין</textarea>
+    <textarea id="expandingTextArea"></textarea>
     <div class="content-container">
       <button id="emojiButton2">✔️</button>
       <p>ספרטא</p>
     </div>
-    <textarea id="expandingTextArea2">תקין</textarea>
+    <textarea id="expandingTextArea2"></textarea>
     <div class="content-container">
       <button id="emojiButton3">✔️</button>
       <p>ספרטא</p>
     </div>
-    <textarea id="expandingTextArea3">תקין</textarea>
+    <textarea id="expandingTextArea3"></textarea>
+    <div class="content-container">
+      <button id="emojiButton4">✔️</button>
+      <p>ספרטא</p>
+    </div>
+    <textarea id="expandingTextArea4"></textarea>
+    <h1 id="resultTitle"></h1>
+    <h1 id="resultTitle2"></h1>
+    <p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h1>
     <script src="renderer.js"></script>
   </div>
   </body>
