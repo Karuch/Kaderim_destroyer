@@ -14,11 +14,13 @@ function createWindow() {
   mainWindow.loadFile('index.html');
   mainWindow.setMenuBarVisibility(false);
 
-  // Event handler for the close event
+  // Refresh the window when it's shown
+  mainWindow.on('show', refreshWindow);
+
   mainWindow.on('close', (event) => {
     if (!app.isQuitting) {
       event.preventDefault();
-      mainWindow.hide(); // Hide the window
+      mainWindow.hide();
     }
     return false;
   });
@@ -27,7 +29,7 @@ function createWindow() {
 }
 
 function createTray() {
-  tray = new Tray('./icon.png'); // Path to your icon image
+  tray = new Tray('./icon.png');
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -73,9 +75,6 @@ app.whenReady().then(() => {
   createWindow();
   createTray();
   checkTimeAndShowWindow();
-
-  // Set an interval to refresh the window every 10 seconds
-  setInterval(refreshWindow, 10000);
 });
 
 app.on('before-quit', () => {

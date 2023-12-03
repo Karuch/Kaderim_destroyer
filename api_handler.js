@@ -15,7 +15,9 @@ fetch('https://dummyjson.com/products/1')
     textareaElement.style.height = textareaElement.scrollHeight + 'px'; // Set the height to the content's scroll height
   })
   .catch(error => {
+    textareaElement.value = "⚠️ERROR: Could not set values from API";
     console.error('Error:', error);
+    
   });
 
 
