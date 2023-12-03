@@ -8,14 +8,17 @@ function createWindow() {
     width: 500,
     height: 600,
     icon: './icon.png',
-    show: false // Initially, don't show the window
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
 
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile('index.html').then(() => {
+    mainWindow.webContents.send('refresh-divs'); // Send the initial refresh message
+  });
   mainWindow.setMenuBarVisibility(false);
-
-  // Refresh the window when it's shown
-  mainWindow.on('show', refreshWindow);
 
   mainWindow.on('close', (event) => {
     if (!app.isQuitting) {
@@ -25,7 +28,8 @@ function createWindow() {
     return false;
   });
 
-  // ... other code ...
+  // Add 'show' event listener to call refreshDivs
+  mainWindow.on('show', refreshDivs);
 }
 
 function createTray() {
@@ -59,15 +63,16 @@ function checkTimeAndShowWindow() {
   setInterval(() => {
     const now = new Date();
     const minutes = now.getMinutes();
-    if (minutes === 31 && mainWindow) {
+    if (minutes === 56 && mainWindow) { // Adjust the minute as needed
       mainWindow.show();
     }
   }, 10000); // Check every 10 seconds
 }
 
-function refreshWindow() {
+function refreshDivs() {
   if (mainWindow) {
-    mainWindow.reload();
+    console.log("Refreshing divs..."); // Log for debugging
+    mainWindow.webContents.send('refresh-divs');
   }
 }
 

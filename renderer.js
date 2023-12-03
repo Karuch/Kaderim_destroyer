@@ -1,3 +1,71 @@
+// renderer.js
+const { ipcRenderer } = require('electron');
+
+
+
+
+
+function fetch_cleaner(link) {
+  fetch(link) //'https://dummyjson.com/products/1'
+  .then(res => res.json())
+  .then(json => {
+    // Select the textarea element by its id
+    const textareaElement = document.getElementById('expandingTextArea5');
+
+    textareaElement.value = `⬛️ ${json.title}`;
+
+    // Adjust the height of the textarea
+    textareaElement.style.height = 'auto'; // Reset the height
+    textareaElement.style.height = textareaElement.scrollHeight + 'px'; // Set the height to the content's scroll height
+  })
+  .catch(error => {
+    textareaElement.value = "⚠️ERROR: Could not set values from API";
+    console.error('Error:', error);
+    
+  });
+}
+function fetch_not_cleaner(link) {
+  fetch(link) //'https://dummyjson.com/products/1'
+  .then(res => res.json())
+  .then(json => {
+    // Select the textarea element by its id
+    const textareaElement = document.getElementById('expandingTextArea5');
+
+    // Append the new text to the textarea, starting two lines down if there's already text
+    if (textareaElement.value) {
+      textareaElement.value += '\n\n';
+    }
+    textareaElement.value += `⬛️ ${json.price}`;
+
+    // Adjust the height of the textarea
+    textareaElement.style.height = 'auto'; // Reset the height
+    textareaElement.style.height = textareaElement.scrollHeight + 'px'; // Set the height to the content's scroll height
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ipcRenderer.on('refresh-divs', () => {
+  const now = new Date();
+  const formattedDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+  document.getElementById('date').textContent = formattedDate;
+  fetch_cleaner('https://dummyjson.com/products/1');
+  fetch_not_cleaner('https://dummyjson.com/products/1');  
+});
+
+
 const now = new Date();
 const year = now.getFullYear();        // Returns the year (4 digits)
 const month = now.getMonth() + 1;      // Returns the month (0-11, +1 to make it 1-12)
@@ -8,9 +76,9 @@ const seconds = now.getSeconds();      // Returns the seconds (0-59)
 const milliseconds = now.getMilliseconds(); // Returns the milliseconds (0-999)
 const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-const dateElement = document.getElementById('date');
+//const dateElement = document.getElementById('date');
 // Set the text of the h1 element to the title from the JSON
-dateElement.textContent = formattedDateTime
+//dateElement.textContent = formattedDateTime
 
 
 
