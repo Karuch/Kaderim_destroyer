@@ -100,6 +100,7 @@ expandings_handler('expandingTextArea2');
 expandings_handler('expandingTextArea3');
 expandings_handler('expandingTextArea4');
 expandings_handler('expandingTextArea5');
+expandings_handler('expandingTextArea6');
 
 
 function toggleButtonAndTextarea(buttonId, textareaId) {
